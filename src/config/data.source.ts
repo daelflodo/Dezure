@@ -2,7 +2,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
-ConfigModule.forRoot({});
+ConfigModule.forRoot({
+  envFilePath: `.${process.env.NODE_ENV}.env`,
+});
 const configService = new ConfigService
 // Obtén el nombre de la migración del segundo argumento pasado al script o usa uno predeterminado
 const migrationName = process.argv[3] || 'unnamed_migration';

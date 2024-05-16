@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DevtoolsModule } from '@nestjs/devtools-integration';
 import * as joi from 'joi';
 
 import { UserModule } from './user/user.module';
@@ -24,6 +25,10 @@ import { ProductModule } from './product/product.module';
         JWT_SECRET: joi.string().required(),
         JWT_EXPIRE: joi.string().required(),
       }),
+    }),
+    DevtoolsModule.register({
+      http: process.env.NODE_ENV !== 'production',
+      port:8001
     }),
     TypeOrmModule.forRoot({...dataSourceConfig}),
     UserModule,
